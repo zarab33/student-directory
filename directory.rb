@@ -1,80 +1,63 @@
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
-]
+@students = [] 
 
-def interactive_menu
-  loop do
-  # 1. print the menu and ask the user what to do
-  puts "1. input the students"
-  puts "2. show the students"
-  puts "9 Exit"
-  # 2. read the input and save it into a variable
-  selection = gets.chomp
-  # 3. do what the user has asked
-  case selection
-  when "1"
-    # input the students
-  when "2"
-    # show the students
-  else "9"
-    puts "I don't know what you meant, try again"
-end
-
-def print_header
-  puts "The students of Villains Academy".center(50)
-  puts "---------------".center(50)
-end
-
-def print(students)
-  cohorts = students.map { |student| student[:cohort] }.uniq
-
-  cohorts.each do |cohort|
-    puts "#{cohort} cohort:".center(50)
-    students.each_with_index do |student, index|
-      if student[:cohort] == cohort
-        puts "#{index+1}. #{student[:name]}".center(50)
-      end
-    end
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  
+  name = gets.chomp
+  
+  while !name.empty? do
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
+    name = gets.chomp
   end
 end
 
-
-def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(50)
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
 end
 
-def input_students
-puts "Please enter the name and cohort of the student (seperated by a comma)".center(50)
-puts "to finish, just hit return twice".center(50)
-
-students = []
-
-input = gets.delete_suffix("\n")
-
-while !input.empty? do
-  name, cohort = input.split(",")
-  name = name.strip
-  cohort = cohort ? cohort.strip.to_sym : :november
-
-  students << {name: name, cohort: cohort}
-  puts "Now we have #{students.count} students".center(50)
-
-  input_students = gets.chomp
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
 end
 
-students
+def show_students
+  print_header
+  print_student_list
+  print_footer
 end
 
-print_header
-print(students)
-print_footer(students)
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exitkns
+  else
+    puts "I don't know what you meant, try again"
+  end
+end
+
+def print_header
+  puts "The students of Villains Academy"
+  puts "-------------"
+end
+
+def print_student_list
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
+def print_footer
+  puts "Overall, we have #{@students.count} great students"
+end
+
+interactive_menu
