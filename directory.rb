@@ -13,8 +13,8 @@ students = [
 ]
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "---------------"
+  puts "The students of Villains Academy".center(50)
+  puts "---------------".center(50)
 end
 
 def print(students)
@@ -22,19 +22,19 @@ def print(students)
   while index < students.length do
     student = students[index]
     if student[:name].start_with?('D') && student[:name].length < 12
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)".center(50)
     end
     index += 1
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(50)
 end
 
 def input_students
-puts "Please enter the names of the students"
-puts "to finish, just hit return twice"
+puts "Please enter the names of the students".center(50)
+puts "to finish, just hit return twice".center(50)
 
 students = []
 
@@ -43,7 +43,7 @@ name = gets.chomp
 while !name.empty? do
   
   students << {name: name, cohort: :november}
-  puts "Now we have #{students.count} students"
+  puts "Now we have #{students.count} students".center(50)
 
   name = gets.chomp
 end
@@ -51,7 +51,6 @@ end
 students
 end
 
-students = input_students
 print_header
 print(students)
 print_footer(students)
