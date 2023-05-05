@@ -18,15 +18,18 @@ def print_header
 end
 
 def print(students)
-  index = 0
-  while index < students.length do
-    student = students[index]
-    if student[:name].start_with?('D') && student[:name].length < 12
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)".center(50)
+  cohorts = students.map { |student| student[:cohort] }.uniq
+
+  cohorts.each do |cohort|
+    puts "#{cohort} cohort:".center(50)
+    students.each_with_index do |student, index|
+      if student[:cohort] == cohort
+        puts "#{index+1}. #{student[:name]}".center(50)
+      end
     end
-    index += 1
   end
 end
+
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students".center(50)
