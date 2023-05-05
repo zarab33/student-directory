@@ -12,6 +12,24 @@ students = [
   {name: "Norman Bates", cohort: :november}
 ]
 
+def interactive_menu
+  loop do
+  # 1. print the menu and ask the user what to do
+  puts "1. input the students"
+  puts "2. show the students"
+  puts "9 Exit"
+  # 2. read the input and save it into a variable
+  selection = gets.chomp
+  # 3. do what the user has asked
+  case selection
+  when "1"
+    # input the students
+  when "2"
+    # show the students
+  else "9"
+    puts "I don't know what you meant, try again"
+end
+
 def print_header
   puts "The students of Villains Academy".center(50)
   puts "---------------".center(50)
