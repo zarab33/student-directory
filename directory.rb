@@ -41,10 +41,13 @@ def input_students
     puts "Now we have #{@students.count} students"
     name = gets.chomp
   end
+
+  puts "All students added successfully!"
 end
 
 def add_student(name, cohort)
   @students << { name: name, cohort: cohort }
+  puts "Added #{name} to the list"
 end
 
 def show_students
@@ -65,26 +68,34 @@ def print_student_list
 end
 
 def print_footer
-  puts "Overall, we have #{@students.count} great students"
+  puts "Overall, we have #{@students.count}"
 end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  puts "Enter filename to save to (default: students.csv):"
+  filename = gets.chomp
+  filename = "students.csv" if filename.empty?
+  File.open(filename, "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
+  puts "Students saved successfully to #{filename}!"
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort.to_sym)
+def load_students
+  puts "Enter filename to load from (default: students.csv):"
+  filename = gets.chomp
+  filename = "students.csv" if filename.empty?
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_student(name, cohort.to_sym)
+    end
   end
-  file.close
+  puts "Students loaded successfully from #{filename}!"
 end
 
 def try_load_students
