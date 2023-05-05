@@ -74,3 +74,4 @@ def print_footer
 end
 
 interactive_menu
+students.csv
