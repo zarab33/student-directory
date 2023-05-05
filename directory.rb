@@ -41,7 +41,7 @@ puts "to finish, just hit return twice".center(50)
 
 students = []
 
-input = gets.chomp
+input = gets.delete_suffix("\n")
 
 while !input.empty? do
   name, cohort = input.split(",")
