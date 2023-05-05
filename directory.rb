@@ -2,6 +2,13 @@ require 'csv'
 
 @students = [] 
 
+filename = __FILE__
+File.open(filename, "r") do |file|
+  file.each_line do |line|
+    puts line
+  end
+end
+
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
